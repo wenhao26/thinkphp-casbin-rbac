@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>权限 - 用户管理</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+</head>
+<body>
+
+<div class="layui-container">
+    <blockquote class="layui-elem-quote" style="margin-top: 30px;">
+        <div class="layui-text">
+            添加用户
+        </div>
+    </blockquote>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属角色</label>
+            <div class="layui-input-block">
+                <select name="group" lay-filter="group">
+                    <option value="sales_team">销售组</option>
+                    <option value="finance_team">财务组</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="../static/jquery-3.7.1.min.js"></script>
+<script src="../static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var util = layui.util;
+
+        form.on('submit(demo1)', function (data) {
+            // var field = data.field;
+            // layer.alert(JSON.stringify(field), {
+            //     title: '当前填写的字段值'
+            // });
+
+            $.ajax({
+                url: '/purview/addUser',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (obj) {
+                    if (obj.code === 0) {
+                        layer.msg('保存成功', {icon: 1, time: 2000});
+                    } else {
+                        layer.msg('保存失败', {icon: 2, time: 2000});
+                    }
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>权限 - 策略管理</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+</head>
+<body>
+
+<div class="layui-container">
+    <blockquote class="layui-elem-quote" style="margin-top: 30px;">
+        <div class="layui-text">
+            添加策略
+        </div>
+    </blockquote>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色分组</label>
+            <div class="layui-input-block">
+                <select name="group" lay-filter="group">
+                    <option value="sales_team">销售组</option>
+                    <option value="finance_team">财务组</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">策略规则</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="policy[0]" value="order/list" title="订单列表" checked>
+                <input type="checkbox" name="policy[1]" value="order/get" title="订单查看" checked>
+                <input type="checkbox" name="policy[2]" value="order/import" title="订单导入" checked>
+                <input type="checkbox" name="policy[3]" value="order/export" title="订单导出" checked>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<script src="../static/jquery-3.7.1.min.js"></script>
+<script src="../static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var util = layui.util;
+
+        form.on('submit(demo1)', function (data) {
+            // var field = data.field;
+            // layer.alert(JSON.stringify(field), {
+            //     title: '当前填写的字段值'
+            // });
+
+            $.ajax({
+                url: '/purview/addPolicy',
+                type: 'post',
+                data: data.field,
+                dataType: 'json',
+                success: function (obj) {
+                    if (obj.code === 0) {
+                        layer.msg('保存成功', {icon: 1, time: 2000});
+                    } else {
+                        layer.msg('保存失败', {icon: 2, time: 2000});
+                    }
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
