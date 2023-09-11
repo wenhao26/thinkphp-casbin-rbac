@@ -56,5 +56,20 @@ class Purview extends BaseController
         return View::fetch();
     }
 
+    public function arrCompare()
+    {
+        $a1 = ['a', 'b', 'c'];
+        $a2 = ['a', 'c', 'd', 'e'];
+
+        $ret0 = array_intersect($a1, $a2); // 交集（共同的数据）
+        $ret1 = array_diff($a1, $ret0); // 差集（老的数据）
+        $ret2 = array_diff($a2, $ret0); // 差集（新的数据）
+
+        echo '<pre>';
+        var_dump($ret0);
+        var_dump($ret1);
+        var_dump($ret2);
+    }
+
 
 }
