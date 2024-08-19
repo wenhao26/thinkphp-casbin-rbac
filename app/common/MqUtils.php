@@ -43,13 +43,14 @@ class MqUtils
 
         // 生成消息
         $body = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        $msg  = new AMQPMessage(
+        /*$msg  = new AMQPMessage(
             $body,
             [
                 'content-type'  => 'application/json',
                 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
             ]
-        );
+        );*/
+        $msg  = new AMQPMessage($body);
 
         // 推送消息
         $this->channel->basic_publish($msg, $exchangeName, $routingKey);
