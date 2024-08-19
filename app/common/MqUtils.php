@@ -86,6 +86,12 @@ class MqUtils
         }
     }
 
+    public function msgProc($msg)
+    {
+        echo $msg->body . "\n";
+        $msg->ack();
+    }
+
     public function consumer2(string $exchangeName, string $exchangeType, string $queueName, string $routingKey, string $consumerTag, callable $cb)
     {
         // 流量控制
