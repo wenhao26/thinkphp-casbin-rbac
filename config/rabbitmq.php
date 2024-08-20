@@ -3,10 +3,10 @@
 return [
     // 连接信息
     'connect' => [
-        'host'     => '161.117.4.208',
+        'host'     => '127.0.0.1',
         'port'     => '5672',
-        'user'     => 'hinovel-test',
-        'password' => 'dbPfePFM0FWf2ysh'
+        'user'     => 'admin',
+        'password' => 'admin'
     ],
 
     // 测试主题
